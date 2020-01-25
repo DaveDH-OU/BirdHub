@@ -1,0 +1,98 @@
+html{
+    scroll-behavior: smooth;
+}
+
+.body {
+    font-family: 'Barlow Condensed';
+    padding:0;
+    width:100%;
+    margin-right:auto; 
+    margin-left:auto;
+}
+
+body::-webkit-scrollbar { 
+    display: none; 
+} 
+
+.main {
+    position: relative;
+    color: white;
+    z-index: 1;
+} 
+
+.menu ul {
+    margin-top: 19px;
+    margin-right: 15px;
+}
+
+ul li {
+    display:inline-block;
+    margin-right:40px;
+}
+
+.menu ul li a {
+    font-size:18px;
+    text-decoration:none;
+}
+
+.nav-trans:hover::after {
+    width:100%;
+    transition: width .4s;
+}
+
+.nav-trans::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 2px;
+    background: black;
+    transition: width .4s;
+}
+
+.results {
+    background-color: #F0F0F0;
+    padding-bottom: 40px;
+}
+
+.no-results {
+    text-align: center;
+}
+
+.sightings {
+    background-color: #F0F0F0;
+    padding-bottom: 40px;
+}
+
+.sidebar {
+    position: fixed;
+    left: 0px;
+    width: 120px;
+    padding-top:520px;
+    height: 100%;
+    z-index: 0;
+    background: #F0F0F0;
+    border-right: 2px solid white;
+    transition: 1s;
+}
+
+.sidebar.scroll{
+    background-color:white;
+    padding-top:350px;
+    left: 0;
+    transition: .8s;
+}
+
+.sidebar ul li{
+    margin-top:50px;
+
+}
+
+.sidebar ul li a {
+    text-decoration: none;
+}
+
+@media screen and (max-width: 1400px) {
+    .sidebar {
+        display: none;
+    }
+}

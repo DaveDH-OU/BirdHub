@@ -1,0 +1,98 @@
+<div class="sidebar">
+    <ul>
+        <li><a class="nav-trans" href="#main">Account</a></li>
+        <li><a class="nav-trans" href="#update">Update</a></li>
+        <li><a class="nav-trans" href="#sightings">Sightings</a></li>
+    </ul>
+</div>
+
+<div id="main" class="main" style="height: 410px; background: url('/images/birdbg2.jpg'); background-size:cover; background-position:top">
+<div class="nav" style="position:relative;">
+        <nav style="width:100%; height:65px; text-align:right; background: rgba(0,0,0,0.1);">
+                <h2 class="mt-3 ml-4" style="float:left;"><i class="fas fas fa-feather fa-1x"></i>    Birdhub</h2>
+                <div class="menu">
+                <ul>
+                    <li><a href="/" class="nav-trans">Search</a></li>
+                    <li><a href="/users/logout" class="nav-trans">Logout</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>   
+    <h1 style="text-align:center; margin-top:40px; font-size:40px;">Account</h1>
+    <p style="text-align:center; color: #404040; font-size:16px;">Update your account information, <br>and view past bird sightings</p>  
+</div>
+
+<div id="update"  class="info pt-3 pb-3">
+<form action="/users/account" method="POST">
+<div class="container" style="width:50%; margin-left:auto; margin-right:auto;">
+        <h2 style="text-align:center; margin-top:30px;">- Update Info -</h2> 
+    <%- include ('partials/messages') %>
+    <div class="form-group">
+        <label class="col-form-label" for="inputDefault">First name: </label>
+        <input type="text" class="form-control" placeholder="<%if(updatedUser.first_name){%><%=updatedUser.first_name%> <%}else{%><%=user.first_name%><%}%>" id="inputDefault" name="inputFname">
+    </div>
+    <div class="form-group">
+        <label class="col-form-label" for="inputDefault">Last name: </label>
+        <input type="text" class="form-control" placeholder="<%if(updatedUser.last_name){%><%=updatedUser.last_name%> <%}else{%><%=user.last_name%><%}%>" id="inputDefault" name="inputLname">
+    </div>
+    <button type="submit" class="btn btn-primary btn-block mt-5 mb-4">Update</button>
+</div>  
+</form>
+</div>
+
+<div id="sightings" class="sightings">
+        <%if(userSightings.length == 0) { %>
+            <div class="no-results">
+                <h2 class="pt-4 pb-2" >No Sightings Yet!</h2>
+                <p>Search for birds to add sightings and save them to your page!</p>
+            </div>
+            <% } else {%>
+                <h2 class="pt-4 pb-2" style="text-align:center;">- Sightings -</h2>
+                <p style="text-align:center;">View all of your past bird sightings.</p>
+            <% } %>
+<div class="container mt-5 pt-4">
+    <div class="row">
+        <%for(let i = 0; i < userSightings.length; i = i+3) { %>
+            <% if(userSightings[i]) { %>
+            <div class="col1 col-md-4" data-aos="fade-up">
+                <div class="card text-black bg-secondary mb-3 px-0" style="height:380px;">
+                    <div class="card-header"><%=userSightings[i].bird.species %></div>
+                    <div class="card-body">
+                        <div class="image" style="height: 95%; width:100%; margin-right: auto; margin-left: auto;">
+                            <img src="/images/<%=userSightings[i].bird.image%>" alt="image" style="max-height:270px; max-width:100%; display: block; margin-left: auto; margin-right:auto;">
+                        </div>
+                        <p style="text-align:center">Sighted on: <%=userSightings[i].date.toDateString() %></p>
+                    </div>
+                </div>
+            </div>
+            <% } %>
+            <% if(userSightings[i+1]) { %>
+                <div class="col1 col-md-4" data-aos="fade-up">
+                    <div class="card text-black bg-secondary mb-3 px-0" style="height:380px">
+                        <div class="card-header"><%=userSightings[i+1].bird.species %></div>
+                        <div class="card-body">
+                            <div class="image" style="height: 95%; width:100%; margin-right: auto; margin-left: auto;">
+                                <img src="/images/<%=userSightings[i+1].bird.image%>" alt="image" style="max-height:270px; max-width:100%; display: block; margin-left: auto; margin-right:auto;">
+                            </div>
+                            <p style="text-align:center">Sighted on: <%=userSightings[i+1].date.toDateString() %></p>
+                        </div>
+                    </div>
+                </div>
+            <% } %>
+            <% if(userSightings[i+2]) { %>
+                <div class="col1 col-md-4" data-aos="fade-up">
+                    <div class="card text-black bg-secondary mb-3 px-0" style="height:380px">
+                        <div class="card-header"><%=userSightings[i+2].bird.species %></div>
+                        <div class="card-body">
+                            <div class="image" style="height: 95%; width:100%; margin-right: auto; margin-left: auto;">
+                                <img src="/images/<%=userSightings[i+2].bird.image%>" alt="image" style="max-height:270px; max-width:100%; display: block; margin-left: auto; margin-right:auto;">
+                            </div>
+                            <p style="text-align:center">Sighted on: <%=userSightings[i+2].date.toDateString() %></p>
+                        </div>
+                    </div>
+                </div>
+            <% } %>
+        <% } %>
+    </div>
+</div>
+</div>

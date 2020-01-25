@@ -1,0 +1,48 @@
+<% if(typeof errors != 'undefined') { %>
+  <% errors.forEach(function(error) { %>
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+              <%= error.msg %>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+ <% }); %>
+<% } %>
+
+<% if(typeof passes != 'undefined') { %>
+<% passes.forEach(function(pass) { %>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <%= pass.msg %>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+<% }); %>
+<% } %>
+
+<% if(pass_msg != '') { %>
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    <%= pass_msg %>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+<% } %>
+
+<% if(fail_msg != '') { %>
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <%= fail_msg %>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+<% } %>
+
+<% if(error != ''){ %>
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+  <%= error %>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<% } %>

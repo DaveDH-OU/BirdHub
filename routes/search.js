@@ -188,6 +188,13 @@ router.get('/vision', (req, res) => {
 });
 
 router.post('/vision', async (req, res) => {
+    let labelsArray = [];
+    let scoreSum = 0;
+    let colorsInImage = [];
+    let colorsInImageTotal = [];
+    let isBird = false;
+
+
     let form = new formidable.IncomingForm();
     form.parse(req, async (err, fields, files) => {
         if (err) throw err
@@ -201,18 +208,28 @@ router.post('/vision', async (req, res) => {
         const client = new vision.ImageAnnotatorClient({
             keyFilename:'/Users/Bassm/Desktop/GoogleAPIKey.json'
         });
+
         // Performs label detection on the image file
         const [result] = await client.labelDetection(newPath); //keep labels and score
         const labels = result.labelAnnotations;
         console.log('Labels:');
-        labels.forEach(label => console.log(label.description, label.score));
+        labels.forEach(function(label){
+            if(label.description.toLowerCase() === "bird" && label.score > 0.90){
+                console.log('this is a bird');
+                isBird = true;
+            }
+            console.log(label.description, label.score);
+            if(label.description != 'Bird' && label.description != 'Vertebrate' && label.description != 'Beak' && label.score > 0.60){
+                labelsArray.push(label.description.toLowerCase());
+            }
+        });
+
+        // Performs image properties to get colors of image
         const [result2] = await client.imageProperties(newPath);
         const colors = result2.imagePropertiesAnnotation.dominantColors.colors;
-        let scoreSum = 0;
-        let colorsInImage = [];
+        colors.forEach(color => scoreSum += color.score); //% of image is done by dividing the score of a color by the sum of all other scores
 
-        colors.forEach(color => scoreSum += color.score);
-        //% of image is done by dividing the score of a color by the sum of all other scores
+        //gets data and converts rgb into useable color string for database
         colors.forEach(function(color){
             let r = color.color.red;
             let g = color.color.green;
@@ -220,16 +237,67 @@ router.post('/vision', async (req, res) => {
             let percentage = 100*(color.score/scoreSum)
             percentage = percentage.toFixed(2);
             console.log(percentage+'%');
-            console.log(chalk.rgb(r,g,b).inverse('                                              '));
+            console.log(chalk.rgb(r,g,b).inverse('                               '));
             let colorString = determineColor(r,g,b);
             colorsInImage.push([percentage, colorString]);
             console.log(colorString);
             console.log('');
         })
-        colorsInImage.sort(function(a,b){
+
+        //add shades of colors together
+        for(let i = 0; i< colorsInImage.length; i++){
+            if(colorsInImage[i] != 'duplicate'){ //eliminate entries that have already been added to the total
+                for(let j = i + 1; j < colorsInImage.length; j++){ //search entries after the unique instance
+                    if(colorsInImage[j][1] == colorsInImage[i][1]){ //if the color is the same
+                        let firstColorInstance = parseFloat(colorsInImage[i][0]); //convert in order to add
+                        let percentToBeAdded = parseFloat(colorsInImage[j][0]); //convert in order to add
+                        firstColorInstance += percentToBeAdded; //add duplicate percentage to unique percentage
+                        firstColorInstance = firstColorInstance.toFixed(2); //formatting
+                        colorsInImage[i][0] = firstColorInstance.toString(); //set total back to unique instance
+                        colorsInImage[j] = 'duplicate'; //set color that was added to total as duplicate so it will not be counted again
+                    }
+                }
+                colorsInImageTotal.push(colorsInImage[i]); //push unique values and their totals to new array
+            }
+        }
+        //sort colors by highest % in image to lowest
+        colorsInImageTotal.sort(function(a,b){
             return b[0] - a[0];
         });
-        console.log(colorsInImage);
+        console.log(colorsInImageTotal);
+
+        //query builder for the tags
+        let imageTags = '[';
+        for(let i = 0; i < labelsArray.length; i++){
+            imageTags += `"${labelsArray[i]}"`;
+            if(i != labelsArray.length - 1){ //if not last label
+                imageTags += ', ';
+            }
+        }
+        imageTags += ']';
+
+        let tagQuery = `{ "tags": { "$in": ${imageTags} } }`;
+        console.log(JSON.parse(tagQuery));
+
+        //query builder for exact match check
+        let speciesQuery = `{ "species": { "$in": ${imageTags} } }`;
+        console.log(JSON.parse(speciesQuery));
+
+        //do search here
+        if(isBird){
+            const result = await Bird.find(JSON.parse(speciesQuery)); //works, but casing matters and can mess up the query. look into collation indexes TODO
+            if(result){
+                console.log(result);
+            }
+            //first see if there are any birds that have a specices name match for any of the tags
+            //second query ($in tags) & 1 most prevelent colors
+            //if there are no results from second query, only query based on ($in tags)
+        }
+        else{
+            console.log('image isnt confirmed to be a bird');
+            searchResults = [];
+        }
+
     });
 
     res.send('image analyzed');
@@ -237,23 +305,22 @@ router.post('/vision', async (req, res) => {
 
 function determineColor(r, g, b){
     let hsvA = hsv(r,g,b);
-    console.log(hsvA);
     let hue = hsvA[0];
     let saturation = hsvA[1];
     let value = hsvA[2];
 
-    if(value <= 10) return 'black';
+    if(value <= 15) return 'black';
     if(saturation <= 10 && (value < 85 && value > 10)) return 'grey';
     if(saturation <= 10 && value >= 85) return 'white';
 
-    if(hue >= 10 && hue <= 50){ //brown most complex, check first
+    if(hue >= 8 && hue <= 50){ //brown most complex, check first
         if(saturation >= 90 && (value > 10 && value <=60)) return 'brown';
         if((saturation >= 70 && saturation < 90) && (value > 10 && value <=65)) return 'brown';
         if((saturation >= 60 && saturation < 70) && (value > 10 && value <=70)) return 'brown';
         if((saturation >= 11 && saturation < 60) && (value > 10 && value <=75)) return 'brown';
     }
     if(hue <= 20 || hue >= 336){ //red could be pink which then could be purple TODO
-        if(hue > 10 && saturation < 80) return 'orange';
+        if((hue > 10 && hue <= 336) && saturation < 80) return 'orange';
         if((hue <= 10 || hue >= 351) && saturation < 60) return 'pink';
         if((hue >= 346 && hue <= 350) && saturation < 70) return 'pink';
         if((hue >= 341 && hue <= 345) && saturation < 75) return 'pink';

@@ -285,17 +285,35 @@ router.post('/vision', async (req, res) => {
 
         //do search here
         if(isBird){
-            const result = await Bird.find(JSON.parse(speciesQuery)); //works, but casing matters and can mess up the query. look into collation indexes TODO
-            if(result){
-                console.log(result);
-            }
+            /*  const result = await Bird.aggregate([
+                { 
+                    $match: { "tags": { $in:["hawk", "sharp shinned hawk"] } } 
+                },
+                {
+                    $project: { "tagsCopy": "$tags", "tags":1 }
+                },
+                {
+                    $unwind: "$tags"
+                },
+                {
+                    $match: { tags: {$in:["hawk", "sharp shinned hawk"]} }
+                },
+                {
+                    $group:{"_id":"$_id", "noOfMatches":{$sum:1}, "tags":{ $first:"$tagsCopy" }}
+                },
+                {
+                    $sort:{noOfMatches:-1}
+                },
+                {
+                    $project:{"_id":0, "noOfMatches":1, tags:1}
+                }
+            ]);  */
             //first see if there are any birds that have a specices name match for any of the tags
             //second query ($in tags) & 1 most prevelent colors
             //if there are no results from second query, only query based on ($in tags)
         }
         else{
             console.log('image isnt confirmed to be a bird');
-            searchResults = [];
         }
 
     });

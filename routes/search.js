@@ -8,6 +8,7 @@ const formidable = require('formidable');
 const fs = require('fs');
 const hsv = require('rgb-hsv');
 const chalk = require('chalk');
+const EJSON = require('mongodb-extended-json');
 
 let dbClassification;
 let dbSubclass;
@@ -201,7 +202,10 @@ router.post('/vision', async (req, res) => {
         let oldPath = files.filetoupload.path;
         let newPath = 'C:/Users/Bassm/Desktop/' + files.filetoupload.name; //TODO make __dirname env variable
         fs.rename(oldPath, newPath, function (err) {
-            if (err) throw err;
+            if (err) {
+                console.log("cannot change file path");
+                throw err;
+            }
             console.log('image uploaded to server');
         });
         // Creates a client
@@ -219,7 +223,7 @@ router.post('/vision', async (req, res) => {
                 isBird = true;
             }
             console.log(label.description, label.score);
-            if(label.description != 'Bird' && label.description != 'Vertebrate' && label.description != 'Beak' && label.score > 0.60){
+            if(label.description != 'Bird' && label.description != 'Vertebrate' && label.description != 'Beak' && label.score > 0.50){
                 labelsArray.push(label.description.toLowerCase());
             }
         });
@@ -265,60 +269,92 @@ router.post('/vision', async (req, res) => {
             return b[0] - a[0];
         });
         console.log(colorsInImageTotal);
+        console.log(labelsArray);
 
-        //query builder for the tags
-        let imageTags = '[';
-        for(let i = 0; i < labelsArray.length; i++){
-            imageTags += `"${labelsArray[i]}"`;
-            if(i != labelsArray.length - 1){ //if not last label
-                imageTags += ', ';
+        //get top 2 colors in image
+        let topColors = [];
+        topColors.push(colorsInImageTotal[0][1]);
+        if(colorsInImageTotal[1]){
+            topColors.push(colorsInImageTotal[1][1]);
+        }
+
+        //get main colors to rule out, if they are not a part of the top 2 colors of the image
+        let obviousMainColors = ["red", "orange", "yellow", "green", "blue", "purple", "pink"];
+        let mainColorsToExclude = [];
+        for(let i = 0; i < obviousMainColors.length; i++){
+            if(topColors[0] != obviousMainColors[i] && topColors[1] != obviousMainColors[i]){
+                mainColorsToExclude.push(obviousMainColors[i]);
             }
         }
-        imageTags += ']';
+        console.log('main color cannot be in the list below -------------------')
+        console.log(mainColorsToExclude);
 
-        let tagQuery = `{ "tags": { "$in": ${imageTags} } }`;
-        console.log(JSON.parse(tagQuery));
 
-        //query builder for exact match check
-        let speciesQuery = `{ "species": { "$in": ${imageTags} } }`;
-        console.log(JSON.parse(speciesQuery));
+        let imageSearchResults;
 
-        //do search here
         if(isBird){
-            /*  const result = await Bird.aggregate([
-                { 
-                    $match: { "tags": { $in:["hawk", "sharp shinned hawk"] } } 
-                },
-                {
-                    $project: { "tagsCopy": "$tags", "tags":1 }
-                },
-                {
-                    $unwind: "$tags"
-                },
-                {
-                    $match: { tags: {$in:["hawk", "sharp shinned hawk"]} }
-                },
-                {
-                    $group:{"_id":"$_id", "noOfMatches":{$sum:1}, "tags":{ $first:"$tagsCopy" }}
-                },
-                {
-                    $sort:{noOfMatches:-1}
-                },
-                {
-                    $project:{"_id":0, "noOfMatches":1, tags:1}
+            let result = await Bird.aggregate([
+              { 
+                  $match: { "tags": { $in: labelsArray }, "colors": { $in: topColors } , "main_color": {$nin: mainColorsToExclude}} 
+              },
+              {
+                  $project: { "tagsCopy": "$tags", "tags":1} //find a way to projet all feilds
+              },
+              {
+                  $unwind: { path: "$tags" }
+              },
+              {
+                  $match: { tags: {$in: labelsArray} }
+              },
+              {
+                  $group:{"_id":"$_id", "noOfMatches":{$sum:1}, "tags":{ $first:"$tagsCopy" }}
+              },
+              {
+                  $sort:{noOfMatches:-1}
+              }
+          ]);  
+          console.log(result);
+          
+            if(result.length > 0){
+                let highestTagsMatched = result[0].noOfMatches;
+
+                //builds list of IDs to query
+                let listOfIDs = '[ ';
+                for(let i = 0; i < result.length; i++){
+                    //filters results to only include matches with the most tags
+                    if(result[i].noOfMatches == highestTagsMatched){
+                        if(i != 0){
+                            listOfIDs += ", ";
+                        }
+                        listOfIDs += `{"$oid": "${result[i]._id}"}`;
+                    }
                 }
-            ]);  */
-            //first see if there are any birds that have a specices name match for any of the tags
-            //second query ($in tags) & 1 most prevelent colors
-            //if there are no results from second query, only query based on ($in tags)
+                listOfIDs += " ]";
+    
+                let idQuery = EJSON.parse(`{ "_id": { "$in": ${listOfIDs} } }`);
+                imageSearchResults = await Bird.find(idQuery);
+                //console.log(imageSearchResults);
+            }
+            else{
+                imageSearchResults = [];
+            }
         }
         else{
+            imageSearchResults = [];
             console.log('image isnt confirmed to be a bird');
         }
 
+        res.render('search', {
+            searchResults: imageSearchResults,
+            classification: dbClassification,
+            subclass: dbSubclass,
+            beak: dbBeakUse,
+            color: dbColor, 
+            beak_color: dbBeakColor,
+            size: dbSize,
+            loggedIn: checkLoggedIn(req)
+        });
     });
-
-    res.send('image analyzed');
 });
 
 function determineColor(r, g, b){
@@ -326,19 +362,21 @@ function determineColor(r, g, b){
     let hue = hsvA[0];
     let saturation = hsvA[1];
     let value = hsvA[2];
+    console.log(hue, saturation, value);
 
     if(value <= 15) return 'black';
     if(saturation <= 10 && (value < 85 && value > 10)) return 'grey';
     if(saturation <= 10 && value >= 85) return 'white';
 
-    if(hue >= 8 && hue <= 50){ //brown most complex, check first
+    if(hue >= 15 && hue <= 50){ //brown most complex, check first
         if(saturation >= 90 && (value > 10 && value <=60)) return 'brown';
         if((saturation >= 70 && saturation < 90) && (value > 10 && value <=65)) return 'brown';
         if((saturation >= 60 && saturation < 70) && (value > 10 && value <=70)) return 'brown';
-        if((saturation >= 11 && saturation < 60) && (value > 10 && value <=75)) return 'brown';
+        if((saturation >= 41 && saturation < 59) && (value > 10 && value <=75)) return 'brown';
+        if((saturation >= 11 && saturation < 40) && (value > 10 && value <=80)) return 'brown';
     }
     if(hue <= 20 || hue >= 336){ //red could be pink which then could be purple TODO
-        if((hue > 10 && hue <= 336) && saturation < 80) return 'orange';
+        if((hue > 10 && hue <= 336) && saturation < 80 && value > 75) return 'orange';
         if((hue <= 10 || hue >= 351) && saturation < 60) return 'pink';
         if((hue >= 346 && hue <= 350) && saturation < 70) return 'pink';
         if((hue >= 341 && hue <= 345) && saturation < 75) return 'pink';

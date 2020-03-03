@@ -184,17 +184,12 @@ router.post('/addSighting', ensureAuthenticated, async(req, res) => {
 
 });
 
-router.get('/vision', (req, res) => {
-    res.render('upload');
-});
-
-router.post('/vision', async (req, res) => {
+router.post('/imageSearch', async (req, res) => {
     let labelsArray = [];
     let scoreSum = 0;
     let colorsInImage = [];
     let colorsInImageTotal = [];
     let isBird = false;
-
 
     let form = new formidable.IncomingForm();
     form.parse(req, async (err, fields, files) => {
@@ -204,7 +199,17 @@ router.post('/vision', async (req, res) => {
         fs.rename(oldPath, newPath, function (err) {
             if (err) {
                 console.log("cannot change file path");
-                throw err;
+                let imageSearchResults = [];
+                res.render('search', {
+                    searchResults: imageSearchResults,
+                    classification: dbClassification,
+                    subclass: dbSubclass,
+                    beak: dbBeakUse,
+                    color: dbColor, 
+                    beak_color: dbBeakColor,
+                    size: dbSize,
+                    loggedIn: checkLoggedIn(req)
+                });
             }
             console.log('image uploaded to server');
         });

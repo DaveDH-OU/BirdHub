@@ -36,16 +36,25 @@ user_password (hashed)
     <p style="text-align:center; color:#606060; font-size:16px;">Welcome to BirdHub</p>        
 </section>
 
+<script>
+    $(document).ready(function(){
+      $('[data-toggle="popover"]').popover();
+    });
+</script>
+
 <div id="search" class="pt-4" style="width:80%; padding-bottom: 40px; margin-left:auto; margin-right:auto;">
     <h4 class="mt-3 mb-4" style="text-align:center; font-size:30px;">- Search -</h4>
     <div class="row justify-content-around">
         <div class="col-md-5 mx-2">
             <form action="/search" method="POST">
                 <div class="container">
-                    <h5 class="mt-3 mb-4" style="text-align:center; font-size:16px;">Search via characteristics</h5>
+                    <h5 class="mt-3 mb-4" style="text-align:center; font-size:16px;">Search via characteristics
+                        <i type="button" data-container="body" data-toggle="popover" data-original-title="Search via Characteristics" data-placement="right" data-content="If you have seen a bird and remember some of its physical features, you can possibly identify the species through a characteristics search. Please only fill in the fields that you are confident are correct, as this ensures the best possible results." class="fas fa-info-circle"></i>
+                    </h5>
                     <div class="row">
                         <div class="form-group col-md-6">
                             <label for="exampleSelect2">Classification</label>
+                                <i type="button" data-container="body" data-toggle="popover" data-original-title="Classification" data-placement="right" data-content="Raptors include birds of prey, such as eagles, hawks, or owls. Waterfowls are found around bodies of water, such as ducks, geese, swans, and loons. Terrestrial birds include turkeys, grouse, and pheasants. Corvids include crow-like birds." class="fas fa-info-circle" style="float:right;"></i>
                             <select class="form-control" id="classification" name ="classification"> <!-- name field defines name of JSON object attribute on POST request-->
                             <option></option>
                                 <% for(let i = 0; i < classification.length; i++) { %>
@@ -55,6 +64,7 @@ user_password (hashed)
                         </div>
                         <div class="form-group col-md-6">
                             <label for="exampleSelect2">Subclass</label>
+                            <i type="button" data-container="body" data-toggle="popover" data-original-title="Subclass" data-placement="right" data-content="The Subclass attribute is helpful when you may know the type of bird you have seen (duck, owl, finch), but do not know the exact species." class="fas fa-info-circle" style="float:right;"></i>
                             <select class="form-control" id="subclass" name ="subclass"> <!-- name field defines name of JSON object attribute on POST request-->
                             <option></option>
                                 <% for(let i = 0; i < subclass.length; i++) { %>
@@ -66,6 +76,7 @@ user_password (hashed)
                     <div class="row">
                         <div class="form-group col-md-6">
                             <label for="exampleSelect2">Main Color</label>
+                            <i type="button" data-container="body" data-toggle="popover" data-original-title="Main Color" data-placement="right" data-content="The main color of a bird is the color that appears most. This is not to be mistaken for a birds distinguishing color. For example, the main color of a robin is grey, even though its distinguishing color is often seen as orange." class="fas fa-info-circle" style="float:right;"></i>
                             <select class="form-control" id="main-color" name ="main_color"> <!-- name field defines name of JSON object attribute on POST request-->
                             <option></option>
                                 <% for(let i = 0; i < color.length; i++) { %>
@@ -75,6 +86,7 @@ user_password (hashed)
                         </div>
                         <div class="form-group col-md-6">
                             <label for="exampleSelect2">Size</label>
+                            <i type="button" data-container="body" data-toggle="popover" data-original-title="Size" data-placement="right" data-content="Small birds are typically not larger than the size of the average pigeon or dove. Medium birds include species that are not any larger than ducks, or smaller species of some owls. Large birds include swans, geese, turkeys, eagles, and large owls and hawks." class="fas fa-info-circle" style="float:right;"></i>
                             <select class="form-control" id="size" name ="size" > <!-- name field defines name of JSON object attribute on POST request-->
                             <option></option>
                                 <% for(let i = 0; i < size.length; i++) { %>
@@ -86,6 +98,7 @@ user_password (hashed)
                     <div class="row">
                         <div class="form-group col-md-6">
                             <label for="exampleSelect2">Beak Color</label>
+                            <i type="button" data-container="body" data-toggle="popover" data-original-title="Beak Color" data-placement="right" data-content="The beak color of a bird is typically black, grey, brown, or white. Some species however have a distinguishing beak color that can help identify the bird. For example, the Wood duck and White Ibis both have a pink beak that they can be identified by." class="fas fa-info-circle" style="float:right;"></i>
                             <select class="form-control" id="beak-color" name ="beak_color"> <!-- name field defines name of JSON object attribute on POST request-->
                             <option></option>
                                 <% for(let i = 0; i < beak_color.length; i++) { %>
@@ -95,6 +108,7 @@ user_password (hashed)
                         </div>
                         <div class="form-group col-md-6">
                             <label for="exampleSelect2">Beak Use</label>
+                            <i type="button" data-container="body" data-toggle="popover" data-original-title="Beak Use" data-placement="right" data-content="The beak use of a bird is dependent on its diet. Birds with thick beaks, like a Blue Grosbeak, use their beak to crack nuts and seeds. Birds with long beaks may use their beaks to fish, or probe for food in the mud. Birds with small beaks typically catch insects. A bird with a hooked beak uses its beak to tear the meat of its prey." class="fas fa-info-circle" style="float:right;"></i>
                             <select class="form-control" id="beak-use" name ="beak_use"> <!-- name field defines name of JSON object attribute on POST request-->
                             <option></option>
                                 <% for(let i = 0; i < beak.length; i++) { %>
@@ -109,7 +123,7 @@ user_password (hashed)
                                 <p>Color(s)</p>
                                     <div class="form-group">
                                         <div class="row1 col-md-12">
-                                            <div class="row">
+                                            <div class="row" style="width:100%">
                                                 <div class="custom-control custom-checkbox col-md-3">
                                                     <input type="checkbox" class="custom-control-input" id="customCheck1" value="1" name="black" unchecked="">
                                                     <label class="custom-control-label" for="customCheck1">black</label>
@@ -127,7 +141,7 @@ user_password (hashed)
                                                     <label class="custom-control-label" for="customCheck4">brown</label>
                                                 </div>
                                             </div>
-                                            <div class="row">
+                                            <div class="row" style="width:100%">
                                                 <div class="custom-control custom-checkbox col-md-3">
                                                     <input type="checkbox" class="custom-control-input" id="customCheck5" value="5" name="red" unchecked="">
                                                     <label class="custom-control-label" for="customCheck5">red</label>
@@ -145,7 +159,7 @@ user_password (hashed)
                                                     <label class="custom-control-label" for="customCheck8">green</label>
                                                 </div>
                                             </div>
-                                            <div class="row">
+                                            <div class="row" style="width:100%">
                                                 <div class="custom-control custom-checkbox col-md-3">
                                                     <input type="checkbox" class="custom-control-input" id="customCheck9" value="9" name="blue" unchecked="">
                                                     <label class="custom-control-label" for="customCheck9">blue</label>
@@ -172,18 +186,20 @@ user_password (hashed)
         </div>
 
         <div class="col-md-5">
-            <h5 class="mt-3 mb-5" style="text-align:center; font-size:16px;">Search via image</54>
+            <h5 class="mt-3 mb-3" style="text-align:center; font-size:16px;">Search via image
+                <i type="button" data-container="body" data-toggle="popover" data-original-title="Search via Image" data-placement="right" data-content="If you have taken a photo of a bird you have seen and wish to identify the species, you can upload the photo and we will return the most likely matches. For best results, crop the image so that the bird fills a majority of the space. A higher quality image will result in a more accurate result." class="fas fa-info-circle"></i>
+            </h5>
             <form action="/imageSearch" method="post" enctype="multipart/form-data">
-                <div class="image-preview" id="imagePreview" style="margin-top:60px;">
-                    <img src = "Desktop/blue_jay.jpg" alt="Image Preview" class="image-upload" style="border: 2px solid #dddddd;">
-                    <span class="default-text"><i class="far fa-file-image fa-4x mb-3"></i> <br> Image Preview</span>
+                <div class="image-preview" id="imagePreview" style="margin-top:30px;">
+                    <img src = "" alt="Image Preview" class="image-upload" style="border: 2px solid #dddddd;">
+                        <span class="default-text" style="text-align:center;"><i class="far fa-file-image fa-4x mb-3"></i> <br> Image Preview</span>
                 </div>
                 <div class="input-group" style="width:90%; margin-left:auto; margin-right: auto; margin-top:20px;">
                     <div class="custom-file mt-4">
                       <input type="file" class="custom-file-input" name="filetoupload" id="inpFile" style="display:none;">
                       <label class="custom-file-label" for="inpFile" style="text-align:left;">Choose file</label>
                     </div>
-                    <div class="input-group-append mt-4">
+                    <div class="input-group-append mt-4" style="height:45px;">
                         <button type="submit" class="btn btn-primary">Upload</button>
                     </div>
                 </div>
@@ -252,12 +268,46 @@ user_password (hashed)
                             <div class="image" style="height: 220px;">
                                 <img src="/images/<%=searchResults[i].image%>" alt="image" style="max-height:220px; max-width:100%; display: block; margin-left: auto; margin-right:auto;">
                             </div>
-                            <form action="/addSighting" method="POST">
-                                <button type ="submit" name="sighting" value="<%=searchResults[i]._id%>" class="btn btn-primary btn-block" style="margin-top:35px;">Add sighting</button>
-                            </form>
+                                <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#Modal<%=i%>" style="margin-top:35px;">More Info</button>
                         </div>
                     </div>
                 </div>
+                  
+                  <!-- Modal -->
+                  <div class="modal fade" id="Modal<%=i%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header ml-3"><%=searchResults[i].species %></div>
+                        <div class="modal-body">
+                            <div class="row mb-5" style="width:100%; margin-left:auto; margin-right:auto;">
+                                <div class="image" style="height: 350px; padding-right:50px; max-width:70%">
+                                    <img src="/images/<%=searchResults[i].image%>" alt="image" style="max-height:350px; max-width:100%; margin-left:20px;">
+                                </div>
+                                <div class="text-holder" style="margin:0; padding:0; position:relative; width:200px;">
+                                    <div style="font-size:18px; padding-top:70px;">
+                                        <p>Classification: <%=searchResults[i].classification%></p>
+                                        <p>Subclass: <%=searchResults[i].subclass%></p>
+                                        <p>Main Color: <%=searchResults[i].main_color%></p>
+                                        <p>Size: <%=searchResults[i].size%></p>
+                                        <p>Beak Use: <%=searchResults[i].beak_use%></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <p style="text-align:center;">Description</p>
+                                <p><%=searchResults[i].description%></p>
+                                <p> sit amet justo donec enim diam vulputate ut pharetra sit amet aliquam id diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque viverra justo nec ultrices dui sapien eget mi proin sed libero enim sed faucibus turpis in eu mi bibendum neque egestas congue quisque egestas diam in arcu cursus euismod quis viverra nibh cras pulvinar mattis nunc sed blandit libero volutpat sed cras ornare arcu dui vivamus arcu felis bibendum ut tristique et egestas quis ipsum suspendisse ultrices gravida dictum fusce ut placerat orci nulla pellentesque dignissim enim sit amet venenatis urna cursus eget nunc scelerisque viverra mauris in aliquam sem fringilla ut morbi tincidunt augue interdum velit euismod in pellentesque massa placerat duis ultricies lacus sed turpis tincidunt id aliquet risus feugiat in ante metus dictum at tempor commodo ullamcorper a lacus vestibulum sed arcu non odio euismod lacinia at quis risus sed vulputate odio ut enim blandit volutpat maecenas volutpat blandit aliquam etiam erat velit scelerisque in dictum non consectetur a erat nam at lectus urna duis convallis convallis tellus id interdum velit laoreet id donec ultrices</p>
+                            </div>
+                        </div>
+                        <div class="modal-footer ">
+                            <form action="/addSighting" method="POST" class="container">
+                                <button type ="submit" name="sighting" value="<%=searchResults[i]._id%>" class="btn btn-primary btn-block" style="width:100%;">Add sighting</button>
+                            </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
                 <% } %>
                 <% if(searchResults[i+1]) { %>
                     <div class="col1 col-md-4" data-aos="fade-up">
@@ -267,12 +317,46 @@ user_password (hashed)
                                 <div class="image" style="height: 220px;">
                                     <img src="/images/<%=searchResults[i+1].image%>" alt="image" style="max-height:220px; max-width:100%; display: block; margin-left: auto; margin-right:auto;">
                                 </div>
-                                <form action="/addSighting" method="POST">
-                                    <button type ="submit" name="sighting" value="<%=searchResults[i+1]._id%>" class="btn btn-primary btn-block" style="margin-top:35px;">Add sighting</button>
-                                </form>
+                                <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#Modal<%=i+1%>" style="margin-top:35px;">More Info</button>
                             </div>
                         </div>
                     </div>
+
+                     <!-- Modal -->
+                  <div class="modal fade" id="Modal<%=i+1%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header ml-3"><%=searchResults[i+1].species %></div>
+                        <div class="modal-body">
+                            <div class="row mb-5" style="width:100%; margin-left:auto; margin-right:auto;">
+                                <div class="image" style="height: 350px; padding-right:50px; max-width:70%">
+                                    <img src="/images/<%=searchResults[i+1].image%>" alt="image" style="max-height:350px; max-width:100%; margin-left:20px;">
+                                </div>
+                                <div class="text-holder" style="margin:0; padding:0; position:relative; width:200px;">
+                                    <div style="font-size:18px; padding-top:70px;">
+                                        <p>Classification: <%=searchResults[i+1].classification%></p>
+                                        <p>Subclass: <%=searchResults[i+1].subclass%></p>
+                                        <p>Main Color: <%=searchResults[i+1].main_color%></p>
+                                        <p>Size: <%=searchResults[i+1].size%></p>
+                                        <p>Beak Use: <%=searchResults[i+1].beak_use%></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <p style="text-align:center;">Description</p>
+                                <p><%=searchResults[i+1].description%></p>
+                                <p> sit amet justo donec enim diam vulputate ut pharetra sit amet aliquam id diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque viverra justo nec ultrices dui sapien eget mi proin sed libero enim sed faucibus turpis in eu mi bibendum neque egestas congue quisque egestas diam in arcu cursus euismod quis viverra nibh cras pulvinar mattis nunc sed blandit libero volutpat sed cras ornare arcu dui vivamus arcu felis bibendum ut tristique et egestas quis ipsum suspendisse ultrices gravida dictum fusce ut placerat orci nulla pellentesque dignissim enim sit amet venenatis urna cursus eget nunc scelerisque viverra mauris in aliquam sem fringilla ut morbi tincidunt augue interdum velit euismod in pellentesque massa placerat duis ultricies lacus sed turpis tincidunt id aliquet risus feugiat in ante metus dictum at tempor commodo ullamcorper a lacus vestibulum sed arcu non odio euismod lacinia at quis risus sed vulputate odio ut enim blandit volutpat maecenas volutpat blandit aliquam etiam erat velit scelerisque in dictum non consectetur a erat nam at lectus urna duis convallis convallis tellus id interdum velit laoreet id donec ultrices</p>
+                            </div>
+                        </div>
+                        <div class="modal-footer ">
+                            <form action="/addSighting" method="POST" class="container">
+                                <button type ="submit" name="sighting" value="<%=searchResults[i+1]._id%>" class="btn btn-primary btn-block" style="width:100%;">Add sighting</button>
+                            </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
                 <% } %>
                 <% if(searchResults[i+2]) { %>
                     <div class="col1 col-md-4" data-aos="fade-up">
@@ -282,12 +366,46 @@ user_password (hashed)
                                 <div class="image" style="height: 220px;">
                                     <img src="/images/<%=searchResults[i+2].image%>" alt="image" style="max-height:220px; max-width:100%; display: block; margin-left: auto; margin-right:auto;">
                                 </div>
-                                <form action="/addSighting" method="POST">
-                                    <button type ="submit" name="sighting" value="<%=searchResults[i+2]._id%>" class="btn btn-primary btn-block" style="margin-top:35px;">Add sighting</button>
-                                </form>
+                                <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#Modal<%=i+2%>" style="margin-top:35px;">More Info</button>
                             </div>
                         </div>
                     </div>
+
+                     <!-- Modal -->
+                  <div class="modal fade" id="Modal<%=i+2%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header ml-3"><%=searchResults[i+2].species %></div>
+                        <div class="modal-body">
+                            <div class="row mb-5" style="width:100%; margin-left:auto; margin-right:auto;">
+                                <div class="image" style="height: 350px; padding-right:50px; max-width:70%">
+                                    <img src="/images/<%=searchResults[i+2].image%>" alt="image" style="max-height:350px; max-width:100%; margin-left:20px;">
+                                </div>
+                                <div class="text-holder" style="margin:0; padding:0; position:relative; width:200px;">
+                                    <div style="font-size:18px; padding-top:70px;">
+                                        <p>Classification: <%=searchResults[i+2].classification%></p>
+                                        <p>Subclass: <%=searchResults[i+2].subclass%></p>
+                                        <p>Main Color: <%=searchResults[i+2].main_color%></p>
+                                        <p>Size: <%=searchResults[i+2].size%></p>
+                                        <p>Beak Use: <%=searchResults[i+2].beak_use%></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <p style="text-align:center;">Description</p>
+                                <p><%=searchResults[i].description%></p>
+                                <p> sit amet justo donec enim diam vulputate ut pharetra sit amet aliquam id diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque viverra justo nec ultrices dui sapien eget mi proin sed libero enim sed faucibus turpis in eu mi bibendum neque egestas congue quisque egestas diam in arcu cursus euismod quis viverra nibh cras pulvinar mattis nunc sed blandit libero volutpat sed cras ornare arcu dui vivamus arcu felis bibendum ut tristique et egestas quis ipsum suspendisse ultrices gravida dictum fusce ut placerat orci nulla pellentesque dignissim enim sit amet venenatis urna cursus eget nunc scelerisque viverra mauris in aliquam sem fringilla ut morbi tincidunt augue interdum velit euismod in pellentesque massa placerat duis ultricies lacus sed turpis tincidunt id aliquet risus feugiat in ante metus dictum at tempor commodo ullamcorper a lacus vestibulum sed arcu non odio euismod lacinia at quis risus sed vulputate odio ut enim blandit volutpat maecenas volutpat blandit aliquam etiam erat velit scelerisque in dictum non consectetur a erat nam at lectus urna duis convallis convallis tellus id interdum velit laoreet id donec ultrices</p>
+                            </div>
+                        </div>
+                        <div class="modal-footer ">
+                            <form action="/addSighting" method="POST" class="container">
+                                <button type ="submit" name="sighting" value="<%=searchResults[i+2]._id%>" class="btn btn-primary btn-block" style="width:100%;">Add sighting</button>
+                            </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
                 <% } %>
             <% } %>
         </div>

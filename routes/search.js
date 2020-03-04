@@ -236,6 +236,7 @@ router.post('/imageSearch', async (req, res) => {
         // Performs image properties to get colors of image
         const [result2] = await client.imageProperties(newPath);
         const colors = result2.imagePropertiesAnnotation.dominantColors.colors;
+        console.log(colors);
         colors.forEach(color => scoreSum += color.score); //% of image is done by dividing the score of a color by the sum of all other scores
 
         //gets data and converts rgb into useable color string for database
@@ -303,7 +304,7 @@ router.post('/imageSearch', async (req, res) => {
                   $match: { "tags": { $in: labelsArray }, "colors": { $in: topColors } , "main_color": {$nin: mainColorsToExclude}} 
               },
               {
-                  $project: { "tagsCopy": "$tags", "tags":1} //find a way to projet all feilds
+                  $project: { "tagsCopy": "$tags", "tags":1}
               },
               {
                   $unwind: { path: "$tags" }

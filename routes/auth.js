@@ -8,12 +8,12 @@ router.post('/', async (req, res) => {
     let user = await User.findOne({ email: req.body.email }); //FindOne either returns a result, or null (better than just find)
     console.log(user);
     if(!user){
-        req.flash('fail_msg', 'Invalid email or password');
+        req.flash('fail_msg', '  *Invalid email or password');
         return res.redirect('/users/login');
     }
     const validPassword = await bcrypt.compare(req.body.password, user.password)
     if(!validPassword) {
-        req.flash('fail_msg', 'Invalid email or password');
+        req.flash('fail_msg', '  *Invalid email or password');
         return res.redirect('/users/login');
     }
     else { //TODO generate session

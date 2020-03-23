@@ -16,17 +16,18 @@ user_password (hashed)
         <li><a class="nav-trans" href="#results">Results</a></li>
     </ul>
 </div>
-<section id="main" class="main" style="height: 390px; background: url('/images/birdbg.jpg'); background-size:cover; background-position:top">
+<section id="main" class="main" style="height: 370px; background: url('/images/birdbg.jpg'); background-size:cover; background-position:top">
     <div class="nav" style="position:relative;">
             <nav style="width:100%; height:65px; text-align:right; background: rgba(0,0,0,0.1);">
                     <h2 class="mt-3 ml-4" style="float:left;"><i class="fas fa-feather fa-1x"></i>    Birdhub</h2>
                     <div class="menu">
                     <ul>
                         <% if(loggedIn) { %>
-                            <li><a href="/users/account" class="nav-trans">Account</a></li>
-                            <li><a href="/users/logout" class="nav-trans">Logout</a></li>
+                            <li><a href="/users/account" class="nav-trans">ACCOUNT</a></li>
+                            <li><a href="/users/logout" class="nav-trans">LOGOUT</a></li>
                         <% } else { %>
-                            <li><a href="/users/login" class="nav-trans">Login</a></li>
+                            <li><a href="/" class="nav-trans">SEARCH</a></li>
+                            <li><a href="/users/login" class="nav-trans">LOGIN</a></li>
                         <% } %>
                     </ul>
                 </div>
@@ -119,65 +120,61 @@ user_password (hashed)
                     </div>
                     <div class="container">
                         <div class="row">
-                            <div class="container col-md-6 col-sm-6 px-0" style="font-size:12px;">
-                                <p>Color(s)</p>
+                            <div class="container col-lg-6 col-md-12 px-0" style="font-size:12px;">
+                                <label class="mb-2">Color(s)</label>
                                     <div class="form-group">
-                                        <div class="row1 col-md-12">
-                                            <div class="row" style="width:100%">
-                                                <div class="custom-control custom-checkbox col-md-3">
+                                            <div class="colors">
+                                                <div class="custom-control custom-checkbox" style="width:65px; display:inline-block">
                                                     <input type="checkbox" class="custom-control-input" id="customCheck1" value="1" name="black" unchecked="">
                                                     <label class="custom-control-label" for="customCheck1">black</label>
                                                 </div>
-                                                <div class="custom-control custom-checkbox col-md-3">
+                                                <div class="custom-control custom-checkbox" style="width:65px; display:inline-block">
                                                     <input type="checkbox" class="custom-control-input" id="customCheck2" value="2" name="grey" unchecked="">
                                                     <label class="custom-control-label" for="customCheck2">grey</label>
                                                 </div>
-                                                <div class="custom-control custom-checkbox col-md-3">
+                                                <div class="custom-control custom-checkbox" style="width:65px; display:inline-block">
                                                     <input type="checkbox" class="custom-control-input" id="customCheck3" value="3" name="white" unchecked="">
                                                     <label class="custom-control-label" for="customCheck3">white</label>
                                                 </div>
-                                                <div class="custom-control custom-checkbox col-md-3">
+                                                <div class="custom-control custom-checkbox" style="width:65px; display:inline-block">
                                                     <input type="checkbox" class="custom-control-input" id="customCheck4" value="4" name="brown" unchecked="">
                                                     <label class="custom-control-label" for="customCheck4">brown</label>
                                                 </div>
-                                            </div>
-                                            <div class="row" style="width:100%">
-                                                <div class="custom-control custom-checkbox col-md-3">
+                                                <div class="custom-control custom-checkbox" style="width:65px; display:inline-block">
                                                     <input type="checkbox" class="custom-control-input" id="customCheck5" value="5" name="red" unchecked="">
                                                     <label class="custom-control-label" for="customCheck5">red</label>
                                                 </div>
-                                                <div class="custom-control custom-checkbox col-md-3">
+                                                <div class="custom-control custom-checkbox" style="width:65px; display:inline-block">
                                                     <input type="checkbox" class="custom-control-input" id="customCheck6" value="6" name="orange" unchecked="">
                                                     <label class="custom-control-label" for="customCheck6">orange</label>
                                                 </div>
-                                                <div class="custom-control custom-checkbox col-md-3">
+                                                <div class="custom-control custom-checkbox" style="width:65px; display:inline-block">
                                                     <input type="checkbox" class="custom-control-input" id="customCheck7" value="7" name="yellow" unchecked="">
                                                     <label class="custom-control-label" for="customCheck7">yellow</label>
                                                 </div>
-                                                <div class="custom-control custom-checkbox col-md-3">
+                                                <div class="custom-control custom-checkbox" style="width:65px; display:inline-block">
                                                     <input type="checkbox" class="custom-control-input" id="customCheck8" value="8" name="green" unchecked="">
                                                     <label class="custom-control-label" for="customCheck8">green</label>
                                                 </div>
-                                            </div>
-                                            <div class="row" style="width:100%">
-                                                <div class="custom-control custom-checkbox col-md-3">
+                                                <div class="custom-control custom-checkbox" style="width:65px; display:inline-block">
                                                     <input type="checkbox" class="custom-control-input" id="customCheck9" value="9" name="blue" unchecked="">
                                                     <label class="custom-control-label" for="customCheck9">blue</label>
                                                 </div>
-                                                <div class="custom-control custom-checkbox col-md-3">
-                                                        <input type="checkbox" class="custom-control-input" id="customCheck10" value="10" name="purple" unchecked="">
-                                                        <label class="custom-control-label" for="customCheck10">purple</label>
-                                                    </div>
-                                                    <div class="custom-control custom-checkbox col-md-3">
-                                                        <input type="checkbox" class="custom-control-input" id="customCheck11" value="11" name="pink" unchecked="">
-                                                        <label class="custom-control-label" for="customCheck11">pink</label>
-                                                    </div>
+                                                <div class="custom-control custom-checkbox" style="width:65px; display:inline-block">
+                                                    <input type="checkbox" class="custom-control-input" id="customCheck10" value="10" name="purple" unchecked="">
+                                                    <label class="custom-control-label" for="customCheck10">purple</label>
+                                                </div>
+                                                <div class="custom-control custom-checkbox" style="width:65px; display:inline-block">
+                                                    <input type="checkbox" class="custom-control-input" id="customCheck11" value="11" name="pink" unchecked="">
+                                                    <label class="custom-control-label" for="customCheck11">pink</label>
+                                                </div>
                                             </div>
-                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6 col-sm-6 pr-0">
-                                    <button type="submit" class="btn btn-primary btn-block mt-5" style="height:50px;">Search</button>
+                                <div class="search-button col-lg-6 col-md-12 ml-0 pr-0 px-0" >
+                                    <div class="fuck">
+                                        <button type="submit" class="btn btn-primary btn-block mt-2" style="height:50px;">Search</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -255,9 +252,74 @@ user_password (hashed)
             <h2 class="pt-4 pb-2" >No Results</h2>
             <p>Please try widening your search criteria or uploading a new image.</p>
         </div>
-        <% } else {%>
-            <h2 class="pt-4 pb-2" style="text-align:center;">- Results -</h2>
-        <% } %>
+        <% } else if(searchResults.length < 3) { %>  <!-- start wide display if less than 3 results-->
+            <h2 class="pt-4 pb-2" style="text-align:center;">- Results (<%=searchResults.length%>) -</h2>
+            <%for(let i = 0; i < searchResults.length; i++) { %>
+                <% if(searchResults[i]) { %>
+                <div class="col1 col-md-12" data-aos="fade-up">
+                    <div class="card card-wide text-black bg-secondary mb-3" style="height:400px;">
+                        <div class="card-header"><%=searchResults[i].species %></div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="image-wide col-md-6 col-sm-12">
+                                    <img src="/images/<%=searchResults[i].image%>" alt="image">
+                                </div>
+                                <div class="text-holder-wide col-md-6 col-sm-12 pl-4">
+                                    <div class="text-area text-area-wide mb-4">
+                                        <h3 class="pb-2">Characteristics</h3>
+                                        <p>Classification: <%=searchResults[i].classification%></p>
+                                        <p>Subclass: <%=searchResults[i].subclass%></p>
+                                        <p>Main Color: <%=searchResults[i].main_color%></p>
+                                        <p>Size: <%=searchResults[i].size%></p>
+                                        <p>Beak Use: <%=searchResults[i].beak_use%></p>
+                                    </div>
+                                    <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#Modal<%=i%>" >More Info</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                  
+                  <!-- Modal -->
+                  <div class="modal fade" id="Modal<%=i%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header ml-3"><%=searchResults[i].species %></div>
+                        <div class="modal-body">
+                            <div class="row mb-5" style="width:100%; margin-left:auto; margin-right:auto;">
+                                <div class="image">
+                                    <img src="/images/<%=searchResults[i].image%>" alt="image">
+                                </div>
+                                <div class="text-holder" style="margin:0; padding:0; position:relative; width:200px;">
+                                    <div class="text">
+                                        <h3 class="pb-2">Characteristics</h3>
+                                        <p>Classification: <%=searchResults[i].classification%></p>
+                                        <p>Subclass: <%=searchResults[i].subclass%></p>
+                                        <p>Main Color: <%=searchResults[i].main_color%></p>
+                                        <p>Size: <%=searchResults[i].size%></p>
+                                        <p>Beak Use: <%=searchResults[i].beak_use%></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="description col-md-12">
+                                <p style="text-align:center;">Description</p>
+                                <p><%=searchResults[i].description%></p>
+                                <p> sit amet justo donec enim diam vulputate ut pharetra sit amet aliquam id diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque viverra justo nec ultrices dui sapien eget mi proin sed libero enim sed faucibus turpis in eu mi bibendum neque egestas congue quisque egestas diam in arcu cursus euismod quis viverra nibh cras pulvinar mattis nunc sed blandit libero volutpat sed cras ornare arcu dui vivamus arcu felis bibendum ut tristique et egestas quis ipsum suspendisse ultrices gravida dictum fusce ut placerat orci nulla pellentesque dignissim enim sit amet venenatis urna cursus eget nunc scelerisque viverra mauris in aliquam sem fringilla ut morbi tincidunt augue interdum velit euismod in pellentesque massa placerat duis ultricies lacus sed turpis tincidunt id aliquet risus feugiat in ante metus dictum at tempor commodo ullamcorper a lacus vestibulum sed arcu non odio euismod lacinia at quis risus sed vulputate odio ut enim blandit volutpat maecenas volutpat blandit aliquam etiam erat velit scelerisque in dictum non consectetur a erat nam at lectus urna duis convallis convallis tellus id interdum velit laoreet id donec ultrices</p>
+                            </div>
+                        </div>
+                        <div class="modal-footer ">
+                            <form action="/addSighting" method="POST" class="container">
+                                <button type ="submit" name="sighting" value="<%=searchResults[i]._id%>" class="btn btn-primary btn-block" style="width:100%;">Add sighting</button>
+                            </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                <% } %>
+            <% } %>
+        <% } else {%> <!-- end less than 3-->
+        <h2 class="pt-4 pb-2" style="text-align:center;">- Results (<%=searchResults.length%>) -</h2>
         <div class="row">
             <%for(let i = 0; i < searchResults.length; i = i+3) { %>
                 <% if(searchResults[i]) { %>
@@ -266,7 +328,7 @@ user_password (hashed)
                         <div class="card-header"><%=searchResults[i].species %></div>
                         <div class="card-body">
                             <div class="image" style="height: 220px;">
-                                <img src="/images/<%=searchResults[i].image%>" alt="image" style="max-height:220px; max-width:100%; display: block; margin-left: auto; margin-right:auto;">
+                                <img src="/images/<%=searchResults[i].image%>" alt="image" style="max-height:100%; max-width:100%; display: block; margin-left: auto; margin-right:auto;">
                             </div>
                                 <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#Modal<%=i%>" style="margin-top:35px;">More Info</button>
                         </div>
@@ -280,11 +342,12 @@ user_password (hashed)
                         <div class="modal-header ml-3"><%=searchResults[i].species %></div>
                         <div class="modal-body">
                             <div class="row mb-5" style="width:100%; margin-left:auto; margin-right:auto;">
-                                <div class="image" style="height: 350px; padding-right:50px; max-width:70%">
-                                    <img src="/images/<%=searchResults[i].image%>" alt="image" style="max-height:350px; max-width:100%; margin-left:20px;">
+                                <div class="image">
+                                    <img src="/images/<%=searchResults[i].image%>" alt="image">
                                 </div>
                                 <div class="text-holder" style="margin:0; padding:0; position:relative; width:200px;">
-                                    <div style="font-size:18px; padding-top:70px;">
+                                    <div class="text">
+                                        <h3 class="pb-2">Characteristics</h3>
                                         <p>Classification: <%=searchResults[i].classification%></p>
                                         <p>Subclass: <%=searchResults[i].subclass%></p>
                                         <p>Main Color: <%=searchResults[i].main_color%></p>
@@ -293,7 +356,7 @@ user_password (hashed)
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-12">
+                            <div class="description col-md-12">
                                 <p style="text-align:center;">Description</p>
                                 <p><%=searchResults[i].description%></p>
                                 <p> sit amet justo donec enim diam vulputate ut pharetra sit amet aliquam id diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque viverra justo nec ultrices dui sapien eget mi proin sed libero enim sed faucibus turpis in eu mi bibendum neque egestas congue quisque egestas diam in arcu cursus euismod quis viverra nibh cras pulvinar mattis nunc sed blandit libero volutpat sed cras ornare arcu dui vivamus arcu felis bibendum ut tristique et egestas quis ipsum suspendisse ultrices gravida dictum fusce ut placerat orci nulla pellentesque dignissim enim sit amet venenatis urna cursus eget nunc scelerisque viverra mauris in aliquam sem fringilla ut morbi tincidunt augue interdum velit euismod in pellentesque massa placerat duis ultricies lacus sed turpis tincidunt id aliquet risus feugiat in ante metus dictum at tempor commodo ullamcorper a lacus vestibulum sed arcu non odio euismod lacinia at quis risus sed vulputate odio ut enim blandit volutpat maecenas volutpat blandit aliquam etiam erat velit scelerisque in dictum non consectetur a erat nam at lectus urna duis convallis convallis tellus id interdum velit laoreet id donec ultrices</p>
@@ -315,7 +378,7 @@ user_password (hashed)
                             <div class="card-header"><%=searchResults[i+1].species %></div>
                             <div class="card-body">
                                 <div class="image" style="height: 220px;">
-                                    <img src="/images/<%=searchResults[i+1].image%>" alt="image" style="max-height:220px; max-width:100%; display: block; margin-left: auto; margin-right:auto;">
+                                    <img src="/images/<%=searchResults[i+1].image%>" alt="image" style="max-height:100%; max-width:100%; display: block; margin-left: auto; margin-right:auto;">
                                 </div>
                                 <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#Modal<%=i+1%>" style="margin-top:35px;">More Info</button>
                             </div>
@@ -329,11 +392,12 @@ user_password (hashed)
                         <div class="modal-header ml-3"><%=searchResults[i+1].species %></div>
                         <div class="modal-body">
                             <div class="row mb-5" style="width:100%; margin-left:auto; margin-right:auto;">
-                                <div class="image" style="height: 350px; padding-right:50px; max-width:70%">
-                                    <img src="/images/<%=searchResults[i+1].image%>" alt="image" style="max-height:350px; max-width:100%; margin-left:20px;">
+                                <div class="image">
+                                    <img src="/images/<%=searchResults[i+1].image%>" alt="image">
                                 </div>
                                 <div class="text-holder" style="margin:0; padding:0; position:relative; width:200px;">
-                                    <div style="font-size:18px; padding-top:70px;">
+                                    <div class="text">
+                                        <h3 class="pb-2">Characteristics</h3>
                                         <p>Classification: <%=searchResults[i+1].classification%></p>
                                         <p>Subclass: <%=searchResults[i+1].subclass%></p>
                                         <p>Main Color: <%=searchResults[i+1].main_color%></p>
@@ -342,7 +406,7 @@ user_password (hashed)
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-12">
+                            <div class="description col-md-12">
                                 <p style="text-align:center;">Description</p>
                                 <p><%=searchResults[i+1].description%></p>
                                 <p> sit amet justo donec enim diam vulputate ut pharetra sit amet aliquam id diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque viverra justo nec ultrices dui sapien eget mi proin sed libero enim sed faucibus turpis in eu mi bibendum neque egestas congue quisque egestas diam in arcu cursus euismod quis viverra nibh cras pulvinar mattis nunc sed blandit libero volutpat sed cras ornare arcu dui vivamus arcu felis bibendum ut tristique et egestas quis ipsum suspendisse ultrices gravida dictum fusce ut placerat orci nulla pellentesque dignissim enim sit amet venenatis urna cursus eget nunc scelerisque viverra mauris in aliquam sem fringilla ut morbi tincidunt augue interdum velit euismod in pellentesque massa placerat duis ultricies lacus sed turpis tincidunt id aliquet risus feugiat in ante metus dictum at tempor commodo ullamcorper a lacus vestibulum sed arcu non odio euismod lacinia at quis risus sed vulputate odio ut enim blandit volutpat maecenas volutpat blandit aliquam etiam erat velit scelerisque in dictum non consectetur a erat nam at lectus urna duis convallis convallis tellus id interdum velit laoreet id donec ultrices</p>
@@ -364,7 +428,7 @@ user_password (hashed)
                             <div class="card-header"><%=searchResults[i+2].species %></div>
                             <div class="card-body">
                                 <div class="image" style="height: 220px;">
-                                    <img src="/images/<%=searchResults[i+2].image%>" alt="image" style="max-height:220px; max-width:100%; display: block; margin-left: auto; margin-right:auto;">
+                                    <img src="/images/<%=searchResults[i+2].image%>" alt="image" style="max-height:100%; max-width:100%; display: block; margin-left: auto; margin-right:auto;">
                                 </div>
                                 <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#Modal<%=i+2%>" style="margin-top:35px;">More Info</button>
                             </div>
@@ -378,11 +442,12 @@ user_password (hashed)
                         <div class="modal-header ml-3"><%=searchResults[i+2].species %></div>
                         <div class="modal-body">
                             <div class="row mb-5" style="width:100%; margin-left:auto; margin-right:auto;">
-                                <div class="image" style="height: 350px; padding-right:50px; max-width:70%">
-                                    <img src="/images/<%=searchResults[i+2].image%>" alt="image" style="max-height:350px; max-width:100%; margin-left:20px;">
+                                <div class="image">
+                                    <img src="/images/<%=searchResults[i+2].image%>" alt="image">
                                 </div>
                                 <div class="text-holder" style="margin:0; padding:0; position:relative; width:200px;">
-                                    <div style="font-size:18px; padding-top:70px;">
+                                    <div class="text">
+                                        <h3 class="pb-2">Characteristics</h3>
                                         <p>Classification: <%=searchResults[i+2].classification%></p>
                                         <p>Subclass: <%=searchResults[i+2].subclass%></p>
                                         <p>Main Color: <%=searchResults[i+2].main_color%></p>
@@ -391,13 +456,13 @@ user_password (hashed)
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-12">
+                            <div class="description col-md-12">
                                 <p style="text-align:center;">Description</p>
                                 <p><%=searchResults[i].description%></p>
                                 <p> sit amet justo donec enim diam vulputate ut pharetra sit amet aliquam id diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque viverra justo nec ultrices dui sapien eget mi proin sed libero enim sed faucibus turpis in eu mi bibendum neque egestas congue quisque egestas diam in arcu cursus euismod quis viverra nibh cras pulvinar mattis nunc sed blandit libero volutpat sed cras ornare arcu dui vivamus arcu felis bibendum ut tristique et egestas quis ipsum suspendisse ultrices gravida dictum fusce ut placerat orci nulla pellentesque dignissim enim sit amet venenatis urna cursus eget nunc scelerisque viverra mauris in aliquam sem fringilla ut morbi tincidunt augue interdum velit euismod in pellentesque massa placerat duis ultricies lacus sed turpis tincidunt id aliquet risus feugiat in ante metus dictum at tempor commodo ullamcorper a lacus vestibulum sed arcu non odio euismod lacinia at quis risus sed vulputate odio ut enim blandit volutpat maecenas volutpat blandit aliquam etiam erat velit scelerisque in dictum non consectetur a erat nam at lectus urna duis convallis convallis tellus id interdum velit laoreet id donec ultrices</p>
                             </div>
                         </div>
-                        <div class="modal-footer ">
+                        <div class="modal-footer">
                             <form action="/addSighting" method="POST" class="container">
                                 <button type ="submit" name="sighting" value="<%=searchResults[i+2]._id%>" class="btn btn-primary btn-block" style="width:100%;">Add sighting</button>
                             </form>
@@ -408,6 +473,7 @@ user_password (hashed)
 
                 <% } %>
             <% } %>
+        <% } %>
         </div>
     </div>
 <% } %>

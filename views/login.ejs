@@ -1,12 +1,29 @@
-<div class="background">
-    <div class="row mt-5" style="width:80%; max-width:1200px; margin-right:auto; margin-left:auto;">
-      <div class="col-md-6 m-auto">
-        <div class="card card-body">
-          <h1 class="text-center mb-3"><i class="fas fa-sign-in-alt"></i>  Login</h1>
-          <%- include ('partials/messages') %>
+<div class="background" style="background-image:url('/images/bgSplash4.jpg'); z-index:1; filter:blur(3px); background-size: contain; background-size: cover; height: 100%; margin-top:0; padding-top:25px;"></div>
+  <div class="holder" style="position: absolute; top:0; left: 0; z-index: 2; width:100%; height: 100%; padding-top:180px">
+        <div class="card card-body m-auto" style="border:none; padding-top:45px; z-index:2; border-radius:5px; height:400px; width:40%;">
+          <div class="row">
+            <div class="col-md-6" style="padding-right: 20px; border-right: 1px solid #dddddd">
+              <div class="login-text-container" style="width:100%; margin-left:auto; margin-right: auto; padding-left:30px;"> 
+                <h1 style="font-size:60px;">Birdhub <i class="fas fas fa-feather fa-1x"></i> </h1>
+                <blockquote class="blockquote">
+                  <p class="mb-0 pt-4 pb-2" style="font-size:14px;">Wow I love BirdHub. It is the best project in the Senior project class. I wish my project was this cool. Amazing.</p>
+                  <footer class="blockquote-footer" style="padding-bottom:32px;">Everyone in <cite title="Source Title">CSI 4999</cite></footer>
+                </blockquote>
+                <p class="lead mt-4">
+                Search without an account. <a href="/">Search</a>
+                </p>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <!-- <%- include ('partials/messages') %> --> 
           <form action="/auth" method="POST">
             <div class="form-group">
               <label for="email">Email</label>
+              <% if(fail_msg != '') { %>
+                <label for="email" style="color: red;">
+                  <%= fail_msg %>
+                </label>
+              <% } %>
               <input
                 type="email"
                 id="email"
@@ -30,7 +47,7 @@
           <p class="lead mt-4">
             No Account? <a href="/users/register">Register</a>
           </p>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-    </div>

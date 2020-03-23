@@ -107,13 +107,150 @@ ul li {
 
 .image-upload{
     display:none;
-    min-height: 200px;
+    min-height: 250px;
     max-width: 100%;
     max-height: 100%;
+}
+
+.text-holder > .text{
+    font-size:18px;
+    margin-top:50px; 
+    border-left:1px solid #dddddd; 
+    padding-left:30px;
+}
+.search-button .fuck{
+    margin-left: 1em;
+}
+
+.text-holder-wide{
+    padding-left: 90px;
+    border-left: 1px solid #dddddd;
+}
+.image-wide {
+    height:300px;
+}
+.image-wide > img{
+    max-height:100%;
+    max-width:100%; 
+    display: block; 
+    margin-left: auto; 
+    margin-right:auto;
+}
+.text-area{
+    height:230px;
+}
+.text-holder-wide{
+    padding-left:30px;
+}
+.modal-body .image{
+    height:350px;
+    padding-right:50px;
+    max-width:70%;
+}
+.modal-body .image img{
+    max-height:350px; 
+    max-width:100%; 
+    margin-left:20px;
 }
 
 @media screen and (max-width: 1400px) {
     .sidebar {
         display: none;
+    }
+}
+
+@media screen and (max-width: 991px) {
+    .card {
+        max-height:300px;
+    }
+    .card-body .image{
+        max-height:130px;
+    }
+    .modal-body .image{
+        height:350px;
+        max-width:90%;
+        padding:0;
+        margin:0;
+        margin-left:auto;
+        margin-right:auto;
+    }
+    .modal-body .image img{
+        max-width:100%;
+        max-height:100%;
+        margin:0;
+        padding:0;
+    }
+    .text-holder{
+        text-align: center;
+        margin-left:auto;
+        margin-right:auto;
+        min-width:100%;
+    }
+    .text-holder > .text{
+        border-left:none;
+        border-top:1px solid #dddddd; 
+        border-bottom:1px solid #dddddd;
+        padding-left:0;
+        padding-top:20px;
+        padding-bottom:20px;
+        width:70%;
+        margin-left:auto;
+        margin-right:auto;
+        margin-top:30px;
+    }
+    .description{
+        text-align:center;
+    }
+    .modal-header {
+        text-align:center;
+    }
+    .search-button .fuck{
+        margin-left: 0;
+    }
+    .text-area-wide{
+       font-size:12px;
+       line-height:80%;
+    }
+    .text-area-wide > h3{
+        font-size:16px;
+     }
+    .text-holder-wide{
+        height: 210px;
+    }
+    .text-area{
+        height:140px;
+    }
+    .image-wide{
+        height:240px;
+    }
+    .image-wide > img{
+        max-height:210px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .card {
+        max-height:100%;
+        max-width:350px;
+        margin-left:auto;
+        margin-right:auto;
+    }
+    .card-body .image{
+        max-height:100%;
+    }
+    .search-button{
+        margin-bottom:50px;
+    }
+    .text-area-wide{
+        display:none;
+    }
+    .image-wide{
+        height:260px;
+    }
+    .image-wide > img{
+        max-height:235px;
+    }
+    .text-holder-wide{
+        border:none;
     }
 }

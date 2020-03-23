@@ -5,33 +5,67 @@ const User = require('../models/user');
 const { Bird }  = require('../models/bird');
 const { ensureAuthenticated, forwardAuthenticated } = require('../middleware/auth');
 
+let emailTakenError = '';
+let passwordMatchError = '';
+let passwordLengthError = '';
+let firstError = '';
+let lastError = '';
+let emailError = '';
+
 // Login page
 router.get('/login', forwardAuthenticated, (req, res) => res.render('Login'));
 
 // Register page
-router.get('/register', forwardAuthenticated, (req, res) => res.render('Register'));
+router.get('/register', forwardAuthenticated, (req, res) => {
+    res.render('register', {
+        emailTakenError,
+        emailError,
+        passwordMatchError,
+        passwordLengthError,
+        firstError,
+        lastError
+    });
+});
 
 // Register user into database
 router.post('/register', (req, res) => {
     const { fname, lname, email, password, password2 } = req.body;
     let errors = [];
+    let emailTakenError = '';
+    let passwordMatchError = '';
+    let passwordLengthError = '';
+    let firstError = '';
+    let lastError = '';
+    let emailError = '';
     //check required fields
     if(!fname || !lname || !email || !password || !password2) {
         errors.push({msg: 'please fill in all fields'});
     }
+    if(!fname)
+        firstError = "*";
+    if(!lname)
+        lastError =  "*";
+    if(!email)
+        emailError = "*";
+    if(!password)
+        passwordLengthError = "*";
+
     //Check if passwords match
     if(password !== password2) {
         errors.push({ msg: 'Passwords do not match'});
+        passwordMatchError = "  *Passwords do not match";
     }
     //Password requirements
-    if(password.length < 6) {
+    if(password.length < 6 && password.length > 0) {
         errors.push({ msg: 'Password should be at least six characters'});
+        passwordLengthError =  "  *Password should be at least six characters";
     }
     //check if email is being used
     async function checkEmailAndRegister() {
         let user = await User.findOne({email: req.body.email });
         if(user){
             errors.push({ msg: 'Email is already registered'});
+            emailTakenError = "  *Email is already registered";
         }
         //check for any input errors
         if(errors.length > 0) {
@@ -42,7 +76,13 @@ router.post('/register', (req, res) => {
                 lname,
                 email,
                 password,
-                password2
+                password2,
+                emailTakenError,
+                emailError,
+                passwordMatchError,
+                passwordLengthError,
+                firstError,
+                lastError
             });
         }
         //if no errors, register user

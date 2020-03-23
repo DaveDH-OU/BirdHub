@@ -41,58 +41,228 @@
 </div>
 
 <div id="sightings" class="sightings">
+    <div class="container">
         <%if(userSightings.length == 0) { %>
             <div class="no-results">
                 <h2 class="pt-4 pb-2" >No Sightings Yet!</h2>
                 <p>Search for birds to add sightings and save them to your page!</p>
             </div>
-            <% } else {%>
+            <% } else if(userSightings.length < 3) {%>
                 <h2 class="pt-4 pb-2" style="text-align:center;">- Sightings -</h2>
                 <p style="text-align:center;">View all of your past bird sightings.</p>
-            <% } %>
+                <% for(let i = 0; i < userSightings.length; i++) { %>
+                    <% if(userSightings[i]) { %>
+                    <div class="col1 col-md-12" data-aos="fade-up">
+                        <div class="card card-wide text-black bg-secondary mb-3" style="height:400px;">
+                            <div class="card-header"><%=userSightings[i].bird.species %></div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="image-wide col-md-6 col-sm-12">
+                                        <img src="/images/<%=userSightings[i].bird.image%>" alt="image">
+                                    </div>
+                                    <div class="text-holder-wide col-md-6 col-sm-12">
+                                        <div class="text-area text-area-wide mb-4">
+                                            <h3 class="pb-2">Characteristics</h3>
+                                            <p>Classification: <%=userSightings[i].bird.classification%></p>
+                                            <p>Subclass: <%=userSightings[i].bird.subclass%></p>
+                                            <p>Main Color: <%=userSightings[i].bird.main_color%></p>
+                                            <p>Size: <%=userSightings[i].bird.size%></p>
+                                            <p>Beak Use: <%=userSightings[i].bird.beak_use%></p>
+                                        </div>
+                                        <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#Modal<%=i%>" >More Info</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                      
+                      <!-- Modal -->
+                      <div class="modal fade" id="Modal<%=i%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header ml-3"><%=userSightings[i].bird.species %></div>
+                            <div class="modal-body">
+                                <div class="row mb-5" style="width:100%; margin-left:auto; margin-right:auto;">
+                                    <div class="image" style="height: 350px; padding-right:50px; max-width:70%">
+                                        <img src="/images/<%=userSightings[i].bird.image%>" alt="image" style="max-height:350px; max-width:100%; margin-left:20px;">
+                                    </div>
+                                    <div class="text-holder" style="margin:0; padding:0; position:relative; width:200px;">
+                                        <div class="text">
+                                            <h3 class="pb-2">Characteristics</h3>
+                                            <p>Classification: <%=userSightings[i].bird.classification%></p>
+                                            <p>Subclass: <%=userSightings[i].bird.subclass%></p>
+                                            <p>Main Color: <%=userSightings[i].bird.main_color%></p>
+                                            <p>Size: <%=userSightings[i].bird.size%></p>
+                                            <p>Beak Use: <%=userSightings[i].bird.beak_use%></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="description col-md-12">
+                                    <p style="text-align:center;">Description</p>
+                                    <p><%=userSightings[i].bird.description%></p>
+                                    <p> sit amet justo donec enim diam vulputate ut pharetra sit amet aliquam id diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque viverra justo nec ultrices dui sapien eget mi proin sed libero enim sed faucibus turpis in eu mi bibendum neque egestas congue quisque egestas diam in arcu cursus euismod quis viverra nibh cras pulvinar mattis nunc sed blandit libero volutpat sed cras ornare arcu dui vivamus arcu felis bibendum ut tristique et egestas quis ipsum suspendisse ultrices gravida dictum fusce ut placerat orci nulla pellentesque dignissim enim sit amet venenatis urna cursus eget nunc scelerisque viverra mauris in aliquam sem fringilla ut morbi tincidunt augue interdum velit euismod in pellentesque massa placerat duis ultricies lacus sed turpis tincidunt id aliquet risus feugiat in ante metus dictum at tempor commodo ullamcorper a lacus vestibulum sed arcu non odio euismod lacinia at quis risus sed vulputate odio ut enim blandit volutpat maecenas volutpat blandit aliquam etiam erat velit scelerisque in dictum non consectetur a erat nam at lectus urna duis convallis convallis tellus id interdum velit laoreet id donec ultrices</p>
+                                </div>
+                            </div>
+                            <div class="modal-footer ">
+                                <p style="margin-left:auto; margin-right:auto;">Sighted on: <%=userSightings[i].date.toDateString() %></p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+    
+                    <% } %>
+                <% } %>
+            <% } else {%>
+<h2 class="pt-4 pb-2" style="text-align:center;">- Sightings -</h2>
+<p style="text-align:center;">View all of your past bird sightings.</p>
 <div class="container mt-5 pt-4">
     <div class="row">
         <%for(let i = 0; i < userSightings.length; i = i+3) { %>
             <% if(userSightings[i]) { %>
-            <div class="col1 col-md-4" data-aos="fade-up">
-                <div class="card text-black bg-secondary mb-3 px-0" style="height:380px;">
-                    <div class="card-header"><%=userSightings[i].bird.species %></div>
-                    <div class="card-body">
-                        <div class="image" style="height: 95%; width:100%; margin-right: auto; margin-left: auto;">
-                            <img src="/images/<%=userSightings[i].bird.image%>" alt="image" style="max-height:270px; max-width:100%; display: block; margin-left: auto; margin-right:auto;">
+                <div class="col1 col-md-4" data-aos="fade-up">
+                    <div class="card text-black bg-secondary mb-3 px-0" style="height:400px;">
+                        <div class="card-header"><%=userSightings[i].bird.species %></div>
+                        <div class="card-body">
+                            <div class="image" style="height: 220px;">
+                                <img src="/images/<%=userSightings[i].bird.image%>" alt="image" style="max-height:100%; max-width:100%; display: block; margin-left: auto; margin-right:auto;">
+                            </div>
+                                <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#Modal<%=i%>" style="margin-top:35px;">More Info</button>
                         </div>
-                        <p style="text-align:center">Sighted on: <%=userSightings[i].date.toDateString() %></p>
                     </div>
                 </div>
-            </div>
+                  
+                  <!-- Modal -->
+                  <div class="modal fade" id="Modal<%=i%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header ml-3"><%=userSightings[i].bird.species %></div>
+                        <div class="modal-body">
+                            <div class="row mb-5" style="width:100%; margin-left:auto; margin-right:auto;">
+                                <div class="image" style="height: 350px; padding-right:50px; max-width:70%">
+                                    <img src="/images/<%=userSightings[i].bird.image%>" alt="image" style="max-height:350px; max-width:100%; margin-left:20px;">
+                                </div>
+                                <div class="text-holder" style="margin:0; padding:0; position:relative; width:200px;">
+                                    <div class="text">
+                                        <h3 class="pb-2">Characteristics</h3>
+                                        <p>Classification: <%=userSightings[i].bird.classification%></p>
+                                        <p>Subclass: <%=userSightings[i].bird.subclass%></p>
+                                        <p>Main Color: <%=userSightings[i].bird.main_color%></p>
+                                        <p>Size: <%=userSightings[i].bird.size%></p>
+                                        <p>Beak Use: <%=userSightings[i].bird.beak_use%></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="description col-md-12">
+                                <p style="text-align:center;">Description</p>
+                                <p><%=userSightings[i].bird.description%></p>
+                                <p> sit amet justo donec enim diam vulputate ut pharetra sit amet aliquam id diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque viverra justo nec ultrices dui sapien eget mi proin sed libero enim sed faucibus turpis in eu mi bibendum neque egestas congue quisque egestas diam in arcu cursus euismod quis viverra nibh cras pulvinar mattis nunc sed blandit libero volutpat sed cras ornare arcu dui vivamus arcu felis bibendum ut tristique et egestas quis ipsum suspendisse ultrices gravida dictum fusce ut placerat orci nulla pellentesque dignissim enim sit amet venenatis urna cursus eget nunc scelerisque viverra mauris in aliquam sem fringilla ut morbi tincidunt augue interdum velit euismod in pellentesque massa placerat duis ultricies lacus sed turpis tincidunt id aliquet risus feugiat in ante metus dictum at tempor commodo ullamcorper a lacus vestibulum sed arcu non odio euismod lacinia at quis risus sed vulputate odio ut enim blandit volutpat maecenas volutpat blandit aliquam etiam erat velit scelerisque in dictum non consectetur a erat nam at lectus urna duis convallis convallis tellus id interdum velit laoreet id donec ultrices</p>
+                            </div>
+                        </div>
+                        <div class="modal-footer ">
+                            <p style="margin-left:auto; margin-right:auto;">Sighted on: <%=userSightings[i].date.toDateString() %></p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
             <% } %>
             <% if(userSightings[i+1]) { %>
                 <div class="col1 col-md-4" data-aos="fade-up">
-                    <div class="card text-black bg-secondary mb-3 px-0" style="height:380px">
+                    <div class="card text-black bg-secondary mb-3 px-0" style="height:400px;">
                         <div class="card-header"><%=userSightings[i+1].bird.species %></div>
                         <div class="card-body">
-                            <div class="image" style="height: 95%; width:100%; margin-right: auto; margin-left: auto;">
-                                <img src="/images/<%=userSightings[i+1].bird.image%>" alt="image" style="max-height:270px; max-width:100%; display: block; margin-left: auto; margin-right:auto;">
+                            <div class="image" style="height: 220px;">
+                                <img src="/images/<%=userSightings[i+1].bird.image%>" alt="image" style="max-height:100%; max-width:100%; display: block; margin-left: auto; margin-right:auto;">
                             </div>
-                            <p style="text-align:center">Sighted on: <%=userSightings[i+1].date.toDateString() %></p>
+                                <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#Modal<%=i+1%>" style="margin-top:35px;">More Info</button>
                         </div>
                     </div>
                 </div>
+                  
+                  <!-- Modal -->
+                  <div class="modal fade" id="Modal<%=i+1%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header ml-3"><%=userSightings[i+1].bird.species %></div>
+                        <div class="modal-body">
+                            <div class="row mb-5" style="width:100%; margin-left:auto; margin-right:auto;">
+                                <div class="image" style="height: 350px; padding-right:50px; max-width:70%">
+                                    <img src="/images/<%=userSightings[i+1].bird.image%>" alt="image" style="max-height:350px; max-width:100%; margin-left:20px;">
+                                </div>
+                                <div class="text-holder" style="margin:0; padding:0; position:relative; width:200px;">
+                                    <div class="text">
+                                        <h3 class="pb-2">Characteristics</h3>
+                                        <p>Classification: <%=userSightings[i+1].bird.classification%></p>
+                                        <p>Subclass: <%=userSightings[i+1].bird.subclass%></p>
+                                        <p>Main Color: <%=userSightings[i+1].bird.main_color%></p>
+                                        <p>Size: <%=userSightings[i+1].bird.size%></p>
+                                        <p>Beak Use: <%=userSightings[i+1].bird.beak_use%></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="description col-md-12">
+                                <p style="text-align:center;">Description</p>
+                                <p><%=userSightings[i+1].bird.description%></p>
+                                <p> sit amet justo donec enim diam vulputate ut pharetra sit amet aliquam id diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque viverra justo nec ultrices dui sapien eget mi proin sed libero enim sed faucibus turpis in eu mi bibendum neque egestas congue quisque egestas diam in arcu cursus euismod quis viverra nibh cras pulvinar mattis nunc sed blandit libero volutpat sed cras ornare arcu dui vivamus arcu felis bibendum ut tristique et egestas quis ipsum suspendisse ultrices gravida dictum fusce ut placerat orci nulla pellentesque dignissim enim sit amet venenatis urna cursus eget nunc scelerisque viverra mauris in aliquam sem fringilla ut morbi tincidunt augue interdum velit euismod in pellentesque massa placerat duis ultricies lacus sed turpis tincidunt id aliquet risus feugiat in ante metus dictum at tempor commodo ullamcorper a lacus vestibulum sed arcu non odio euismod lacinia at quis risus sed vulputate odio ut enim blandit volutpat maecenas volutpat blandit aliquam etiam erat velit scelerisque in dictum non consectetur a erat nam at lectus urna duis convallis convallis tellus id interdum velit laoreet id donec ultrices</p>
+                            </div>
+                        </div>
+                        <div class="modal-footer ">
+                            <p style="margin-left:auto; margin-right:auto;">Sighted on: <%=userSightings[i+1].date.toDateString() %></p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
             <% } %>
             <% if(userSightings[i+2]) { %>
                 <div class="col1 col-md-4" data-aos="fade-up">
-                    <div class="card text-black bg-secondary mb-3 px-0" style="height:380px">
+                    <div class="card text-black bg-secondary mb-3 px-0" style="height:400px;">
                         <div class="card-header"><%=userSightings[i+2].bird.species %></div>
                         <div class="card-body">
-                            <div class="image" style="height: 95%; width:100%; margin-right: auto; margin-left: auto;">
-                                <img src="/images/<%=userSightings[i+2].bird.image%>" alt="image" style="max-height:270px; max-width:100%; display: block; margin-left: auto; margin-right:auto;">
+                            <div class="image" style="height: 220px;">
+                                <img src="/images/<%=userSightings[i+2].bird.image%>" alt="image" style="max-height:100%; max-width:100%; display: block; margin-left: auto; margin-right:auto;">
                             </div>
-                            <p style="text-align:center">Sighted on: <%=userSightings[i+2].date.toDateString() %></p>
+                                <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#Modal<%=i+2%>" style="margin-top:35px;">More Info</button>
                         </div>
                     </div>
                 </div>
+                  
+                  <!-- Modal -->
+                  <div class="modal fade" id="Modal<%=i+2%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header ml-3"><%=userSightings[i+2].bird.species %></div>
+                        <div class="modal-body">
+                            <div class="row mb-5" style="width:100%; margin-left:auto; margin-right:auto;">
+                                <div class="image" style="height: 350px; padding-right:50px; max-width:70%">
+                                    <img src="/images/<%=userSightings[i+2].bird.image%>" alt="image" style="max-height:350px; max-width:100%; margin-left:20px;">
+                                </div>
+                                <div class="text-holder" style="margin:0; padding:0; position:relative; width:200px;">
+                                    <div class="text">
+                                        <h3 class="pb-2">Characteristics</h3>
+                                        <p>Classification: <%=userSightings[i+2].bird.classification%></p>
+                                        <p>Subclass: <%=userSightings[i+2].bird.subclass%></p>
+                                        <p>Main Color: <%=userSightings[i+2].bird.main_color%></p>
+                                        <p>Size: <%=userSightings[i+2].bird.size%></p>
+                                        <p>Beak Use: <%=userSightings[i+2].bird.beak_use%></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="description col-md-12">
+                                <p style="text-align:center;">Description</p>
+                                <p><%=userSightings[i+2].bird.description%></p>
+                                <p> sit amet justo donec enim diam vulputate ut pharetra sit amet aliquam id diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque viverra justo nec ultrices dui sapien eget mi proin sed libero enim sed faucibus turpis in eu mi bibendum neque egestas congue quisque egestas diam in arcu cursus euismod quis viverra nibh cras pulvinar mattis nunc sed blandit libero volutpat sed cras ornare arcu dui vivamus arcu felis bibendum ut tristique et egestas quis ipsum suspendisse ultrices gravida dictum fusce ut placerat orci nulla pellentesque dignissim enim sit amet venenatis urna cursus eget nunc scelerisque viverra mauris in aliquam sem fringilla ut morbi tincidunt augue interdum velit euismod in pellentesque massa placerat duis ultricies lacus sed turpis tincidunt id aliquet risus feugiat in ante metus dictum at tempor commodo ullamcorper a lacus vestibulum sed arcu non odio euismod lacinia at quis risus sed vulputate odio ut enim blandit volutpat maecenas volutpat blandit aliquam etiam erat velit scelerisque in dictum non consectetur a erat nam at lectus urna duis convallis convallis tellus id interdum velit laoreet id donec ultrices</p>
+                            </div>
+                        </div>
+                        <div class="modal-footer ">
+                            <p style="margin-left:auto; margin-right:auto;">Sighted on: <%=userSightings[i+2].date.toDateString() %></p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
             <% } %>
         <% } %>
     </div>
+</div>
+<% } %>
 </div>
 </div>

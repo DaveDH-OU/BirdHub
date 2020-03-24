@@ -16,8 +16,7 @@ const birdSchema = new mongoose.Schema({
         enum: ['corvid','waterfowl','songbird','shorebird','raptor','terrestrial','seabird']
     },
     subclass: { 
-        type: String,
-        required: true
+        type: String
     },
     size: { 
         type: String,
@@ -41,6 +40,15 @@ const birdSchema = new mongoose.Schema({
         enum: ['black','grey','white','brown','red','orange','yellow','green','blue','purple','pink']
     },
     image: { 
+        type: String,
+        required: true
+    },
+    tags: {
+        //include species name, classification, order, and any other common tags used to ID the bird
+        type: [ String ],
+        required: true
+    },
+    description: {
         type: String,
         required: true
     }
